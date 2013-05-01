@@ -6,6 +6,9 @@
 ;; Save the emacs buffer state to local directory
 (desktop-save-mode 1)
 
+;; ditch the iconified tool bar for more coding screen realestate.
+(tool-bar-mode -1)
+ 
 ;; highlight parentheses
 (setq load-path (cons (expand-file-name "~/.emacs.d/elpa/highlight-parentheses-20130323.4/") load-path))
 (require 'highlight-parentheses)
@@ -131,7 +134,8 @@
 	     (setq f90-beginning-ampersand t)
 	     (f90-add-imenu-menu)
 	     (abbrev-mode 1)
-	     (which-func-mode 1)))
+	     (which-func-mode 1)
+	     (highlight-parentheses-mode 1)))
 
 (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
 
