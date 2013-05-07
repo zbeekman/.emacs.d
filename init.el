@@ -207,7 +207,8 @@
 	     (abbrev-mode 1)
 	     (column-number-mode t)
 	     (which-func-mode 1)
-	     (flyspell-prog-mode t)
+	     (flyspell-prog-mode)
+	     (hide-ifdef-mode)
 	     (highlight-parentheses-mode 1)))
 
 (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
