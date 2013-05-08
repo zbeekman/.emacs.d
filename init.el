@@ -6,6 +6,9 @@
 ;; mac laptop stuff
 (if (eq system-type 'darwin)
     (progn (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+	   (setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH"))) ; macports
+	   (setq vc-svn-program "/opt/local/bin/svn") ; due to macports
+	   (setenv "PATH" (concat "/usr/local/ossh/bin:/usr/local/krb5/bin:" (getenv "PATH"))) ;DoD
 	   (setq exec-path (append exec-path '("/usr/local/bin")))
 	   (if (file-executable-p "/usr/local/bin/aspell")
 	       (progn
@@ -259,7 +262,9 @@
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(size-indication-mode t)
- '(tool-bar-mode nil))
+ '(speedbar-supported-extension-expressions (quote (".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".js" ".\\(f\\|F\\)\\(90\\|77\\|or\\)?" ".ad[abs]" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" ".ma?k" "[Mm]akefile\\(\\.in\\)?" "CMakeLists.txt")))
+ '(tool-bar-mode nil)
+ '(vc-svn-header (quote ("$HeadURL$" "$Id$"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

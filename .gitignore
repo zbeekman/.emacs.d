@@ -1,21 +1,19 @@
 .emacs.desktop
 
-.emacs.d/.emacs.desktop.lock
+.emacs.desktop.lock
 
-.emacs.d/elpa/archives/gnu/archive-contents
+archive-contents
 
-.emacs.d/elpa/archives/marmalade/archive-contents
+emacs.d/elpa/*-readme.txt
 
-.emacs.d/elpa/archives/melpa/archive-contents
+emacs.d/auto-save-list/*
 
-.emacs.d/elpa/*-readme.txt
+emacs.d/url/*
 
-.emacs.d/auto-save-list/*
+emacs.d/var/*
 
-.emacs.d/url/*
-
-.emacs.d/var/*
-
-.emacs.d/eshell/*
+emacs.d/eshell/*
 
 #*#
+
+.emacs.d/*
