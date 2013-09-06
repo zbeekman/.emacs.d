@@ -21,7 +21,74 @@
 
 ;; ditch the iconified tool bar for more coding screen realestate.
 (tool-bar-mode -1)
- 
+
+;; Org mode stuff 
+(require 'org)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-tag-persistent-alist '((:startgroup . nil)
+				 ("@work" . ?w) ("@home" . ?h)
+				 ("errands" . ?e)
+				 (:endgroup . nil)
+				 ("laptop" . ?l) ("calls" . ?c) ("workstation" . ?k)))
+;; (setq org-tag-alist '((:startgroup . nil)
+;; 		      ("@work" . ?w) ("@home" . ?h)
+;; 		      ("errands" . ?e)
+;; 		      (:endgroup . nil)
+;; 		      ("laptop" . ?l) ("calls" . ?c) ("workstation" . ?k)))
+(setq org-todo-keywords
+       '((sequence "TODO(t)" "TOVERIFY(v)" "WAITING(w@)" "|" "DONE(d!)" "DELEGATED(g@)" "CANCELED(c@)")
+	 (sequence "TOPURCHASE(p!)" "|" "BOUGHT(b!)")
+	 (sequence "EMAILED(e!)" "PHONED(p!)" "MAILED(m!)" "SUBMITTED(s!)" "|" 
+		   "APPROVED(a!)" "DENIED(n!)" "RESOLVED(r!)")))
+(setq org-directory "~/GTD")
+(setq org-default-notes-file (concat org-directory "/InBox.org"))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat org-directory "/InBox.org") "Tasks")
+             "* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
+	))
+(add-to-list 'auto-mode-alist '("README$" . org-mode))
+
+(if (eq system-type 'darwin) ;; Sync for mobile org via dropbox when on laptop
+    (progn (setq org-mobile-directory "~/Dropbox/GTD")
+	   (defvar org-mobile-push-timer nil
+	     "Timer that `org-mobile-push-timer' used to reschedule itself, or nil.")
+	   (defun org-mobile-push-with-delay (secs)
+	     (when org-mobile-push-timer
+	       (cancel-timer org-mobile-push-timer))
+	     (setq org-mobile-push-timer
+		   (run-with-idle-timer
+		    (* 1 secs) nil 'org-mobile-push)))
+	   (add-hook 'after-save-hook
+		     (lambda ()
+		       (when (eq major-mode 'org-mode)
+			 (dolist (file (org-mobile-files-alist))
+			   (if (string= (file-truename (expand-file-name (car file)))
+					(file-truename (buffer-file-name)))
+			       (org-mobile-push-with-delay 30)))
+			 )))
+	   (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
+	   (setq org-mobile-inbox-for-pull (concat org-directory "/InBox.org"))
+	   (org-mobile-pull) ;; run org-mobile-pull at startup
+	   (defun install-monitor (file secs)
+	     (run-with-timer
+	      0 secs
+	      (lambda (f p)
+		(unless (< p (second (time-since (elt (file-attributes f) 5))))
+		  (org-mobile-pull)))
+	      file secs))
+	   (install-monitor (file-truename
+			     (concat
+			      (file-name-as-directory org-mobile-directory)
+			      org-mobile-capture-file))
+			    5)
+	   ;; Do a pull every 5 minutes to circumvent problems with timestamping
+	   ;; (ie. dropbox bugs)
+	   (run-with-timer 0 (* 5 60) 'org-mobile-pull)
+	   ))
+
 ;; highlight parentheses
 (setq load-path (cons (expand-file-name "~/.emacs.d/elpa/highlight-parentheses-20130323.4/") load-path))
 (require 'highlight-parentheses)
@@ -259,6 +326,7 @@
  '(custom-safe-themes (quote ("446c73cdfb49f1dab4c322e51ac00a536fb0e3cb7e6809b9f4616e0858012e92" "1278386c1d30fc24b4248ba69bc5b49d92981c3476de700a074697d777cb0752" "9ea054db5cdbd5baa4cda9d373a547435ba88d4e345f4b06f732edbc4f017dc3" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" "b6f7795c2fbf75baf3419c60ef7625154c046fc2b10e3fdd188e5757e08ac0ec" "4dacec7215677e4a258e4529fac06e0231f7cdd54e981d013d0d0ae0af63b0c8" default)))
  '(fci-rule-character-color "#192028")
  '(inhibit-startup-screen t)
+ '(org-agenda-files (quote ("~/GTD/projects/ProjectIndex.org" "~/GTD/Someday.org" "~/GTD/WaitingOn.org" "~/GTD/NextActions.org" "~/GTD/InBox.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(size-indication-mode t)
