@@ -326,7 +326,7 @@
  '(custom-safe-themes (quote ("446c73cdfb49f1dab4c322e51ac00a536fb0e3cb7e6809b9f4616e0858012e92" "1278386c1d30fc24b4248ba69bc5b49d92981c3476de700a074697d777cb0752" "9ea054db5cdbd5baa4cda9d373a547435ba88d4e345f4b06f732edbc4f017dc3" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" "b6f7795c2fbf75baf3419c60ef7625154c046fc2b10e3fdd188e5757e08ac0ec" "4dacec7215677e4a258e4529fac06e0231f7cdd54e981d013d0d0ae0af63b0c8" default)))
  '(fci-rule-character-color "#192028")
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/GTD/projects/ProjectIndex.org" "~/GTD/Someday.org" "~/GTD/WaitingOn.org" "~/GTD/NextActions.org" "~/GTD/InBox.org")))
+ '(org-agenda-files (quote ("~/GTD/Errands.org" "~/GTD/projects/ProjectIndex.org" "~/GTD/Someday.org" "~/GTD/WaitingOn.org" "~/GTD/NextActions.org" "~/GTD/InBox.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(size-indication-mode t)
