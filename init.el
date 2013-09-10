@@ -51,9 +51,10 @@
 	))
 (add-to-list 'auto-mode-alist '("README$" . org-mode))
 
+(if (eq system-type 'darwin)
+    (setq org-mobile-directory "~/Dropbox/GTD"))
 (if (eq system-type 'darwin) ;; Sync for mobile org via dropbox when on laptop
-    (progn (setq org-mobile-directory "~/Dropbox/GTD")
-	   (defvar org-mobile-push-timer nil
+    (progn (defvar org-mobile-push-timer nil
 	     "Timer that `org-mobile-push-timer' used to reschedule itself, or nil.")
 	   (defun org-mobile-push-with-delay (secs)
 	     (when org-mobile-push-timer
@@ -331,6 +332,7 @@
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(speedbar-supported-extension-expressions (quote (".[ch]\\(\\+\\+\\|pp\\|c\\|h\\|xx\\)?" ".tex\\(i\\(nfo\\)?\\)?" ".el" ".emacs" ".l" ".lsp" ".p" ".java" ".js" ".\\(f\\|F\\)\\(90\\|77\\|or\\)?" ".ad[abs]" ".p[lm]" ".tcl" ".m" ".scm" ".pm" ".py" ".g" ".s?html" ".ma?k" "[Mm]akefile\\(\\.in\\)?" "CMakeLists.txt")))
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(tool-bar-mode nil)
  '(vc-svn-header (quote ("$HeadURL$" "$Id$"))))
 (custom-set-faces
