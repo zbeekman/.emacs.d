@@ -22,6 +22,10 @@
 ;; ditch the iconified tool bar for more coding screen realestate.
 (tool-bar-mode -1)
 
+;; bind a sane compilation to \C-cm
+(global-set-key "\C-cM" 'compile)
+(global-set-key "\C-cm" 'recompile)
+
 ;; Org mode stuff 
 (require 'org)
 (global-set-key "\C-cl" 'org-store-link)
