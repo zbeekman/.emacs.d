@@ -10,14 +10,12 @@ emacs.d/elpa/*-readme.txt
 
 emacs.d/auto-save-list/*
 
-emacs.d/url/*
+url
 
-emacs.d/var/*
+var
 
-emacs.d/eshell/*
+eshell
 
 #*#
 
-.emacs.d/*
-
-emacs.d/tramp
+./tramp

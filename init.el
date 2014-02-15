@@ -3,6 +3,7 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
+
 ;; mac laptop stuff
 (if (eq system-type 'darwin)
     (progn (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
@@ -16,9 +17,9 @@
 		 (setq ispell-extra-args '("-d" "/Library/Application Support/cocoAspell/aspell6-en-6.0-0/en.multi"))
 		 ))))
 
-;; Copy environment variables over if on Mac window system
-    (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
+;; ;; Copy environment variables over if on Mac window system
+;; (when (memq window-system '(mac ns))
+;;   (exec-path-from-shell-initialize))
 
 
 ;; Flymake for ELisp
@@ -133,7 +134,7 @@
 	   ))
 
 ;; highlight parentheses
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/highlight-parentheses-20130323.4/") load-path))
+(add-to-list 'load-path "~/.emacs.d/elpa/highlight-parentheses-20130523.852/")
 (require 'highlight-parentheses)
 (highlight-parentheses-mode 1)
 
@@ -250,16 +251,20 @@
    version-control t)
 
 ;; git interfaces
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/magit-20130501.2106/") load-path))
-(require 'magit)
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/magithub-20121130.1740/") load-path)) 
-(require 'magithub)
+(add-to-list 'load-path "~/.emacs.d/elpa/git-commit-mode-20140125.1553/")
+(require 'git-commit-mode)
+(add-to-list 'load-path "~/.emacs.d/elpa/git-rebase-mode-20140125.1553/")
+(require 'git-rebase-mode)
+(add-to-list 'load-path "~/.emacs.d/elpa/magit-20140214.1108/")
+;(require 'magit)
+;(add-to-list 'load-path "~/.emacs.d/elpa/magithub-20121130.1740/")
+;(require 'magithub)
 
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/graphviz-dot-mode-20120821.1835/") load-path))
+(add-to-list 'load-path "~/.emacs.d/elpa/graphviz-dot-mode-20120821.1835/")
 (require 'graphviz-dot-mode)
 
 ;; Smart TAB behaviour.
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/smart-tab-20130317.1157/") load-path))
+(add-to-list 'load-path "~/.emacs.d/elpa/smart-tab-20130317.1157/")
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand t)
@@ -338,7 +343,7 @@
 
 
 ;;Cmake stuff
-(setq load-path (cons (expand-file-name "~/.emacs.d/elpa/cmake-mode-20110824/") load-path))
+(add-to-list 'load-path "~/.emacs.d/elpa/cmake-mode-20140203.811/")
 (require 'cmake-mode)
 (setq auto-mode-alist
       (append '(("CMakeLists\\.txt\\'" . cmake-mode)
@@ -350,12 +355,12 @@
   (if (file-exists-p "CMakeLists.txt") (cmake-project-mode)))
 (add-hook 'c-mode-hook 'maybe-cmake-project-hook)
 (add-hook 'c++-mode-hook 'maybe-cmake-project-hook)
-;;(add-hook 'f90-mode-hook 'maybe-cmake-project-hook)
+;(add-hook 'f90-mode-hook 'maybe-cmake-project-hook)
 
 ;; tell emacs where to find zenburn
 (setq custom-theme-load-path 
       (append 
-       '("~/.emacs.d/elpa/zenburn-theme-20130417.901/")
+       '("~/.emacs.d/elpa/zenburn-theme-20140212.457/")
        custom-theme-load-path)) 
 
 (custom-set-variables
@@ -366,7 +371,7 @@
  '(ansi-term-color-vector [unspecified "#14191f" "#d15120" "#81af34" "#deae3e" "#7e9fc9" "#a878b5" "#7e9fc9" "#dcdddd"])
  '(column-number-mode t)
  '(custom-enabled-themes (quote (zenburn)))
- '(custom-safe-themes (quote ("446c73cdfb49f1dab4c322e51ac00a536fb0e3cb7e6809b9f4616e0858012e92" "1278386c1d30fc24b4248ba69bc5b49d92981c3476de700a074697d777cb0752" "9ea054db5cdbd5baa4cda9d373a547435ba88d4e345f4b06f732edbc4f017dc3" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" "b6f7795c2fbf75baf3419c60ef7625154c046fc2b10e3fdd188e5757e08ac0ec" "4dacec7215677e4a258e4529fac06e0231f7cdd54e981d013d0d0ae0af63b0c8" default)))
+ '(custom-safe-themes (quote ("a3d519ee30c0aa4b45a277ae41c4fa1ae80e52f04098a2654979b1ab859ab0bf" "d9639ebed5f3709f47b53e4bb8eea98a11455ab9336039cf06e9695a0233d5fb" "446c73cdfb49f1dab4c322e51ac00a536fb0e3cb7e6809b9f4616e0858012e92" "1278386c1d30fc24b4248ba69bc5b49d92981c3476de700a074697d777cb0752" "9ea054db5cdbd5baa4cda9d373a547435ba88d4e345f4b06f732edbc4f017dc3" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" "b6f7795c2fbf75baf3419c60ef7625154c046fc2b10e3fdd188e5757e08ac0ec" "4dacec7215677e4a258e4529fac06e0231f7cdd54e981d013d0d0ae0af63b0c8" default)))
  '(fci-rule-character-color "#192028")
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/GTD/Errands.org" "~/GTD/projects/ProjectIndex.org" "~/GTD/Someday.org" "~/GTD/WaitingOn.org" "~/GTD/NextActions.org" "~/GTD/InBox.org")))
@@ -383,3 +388,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+

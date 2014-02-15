@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (highlight-parentheses-mode) "highlight-parentheses"
-;;;;;;  "highlight-parentheses.el" (21246 52399 0 0))
+;;;;;;  "highlight-parentheses.el" (21246 61333 0 0))
 ;;; Generated autoloads from highlight-parentheses.el
 
 (autoload 'highlight-parentheses-mode "highlight-parentheses" "\
@@ -15,7 +15,7 @@ Minor mode to highlight the surrounding parentheses.
 ;;;***
 
 ;;;### (autoloads nil nil ("highlight-parentheses-pkg.el") (21246
-;;;;;;  52399 163738 0))
+;;;;;;  61333 50822 0))
 
 ;;;***
 
