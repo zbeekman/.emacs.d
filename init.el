@@ -16,6 +16,10 @@
 		 (setq ispell-extra-args '("-d" "/Library/Application Support/cocoAspell/aspell6-en-6.0-0/en.multi"))
 		 ))))
 
+;; Copy environment variables over if on Mac window system
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
+
 
 ;; Flymake for ELisp
 (require 'flymake)
