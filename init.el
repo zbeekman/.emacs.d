@@ -3,6 +3,8 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
+(setq package-enable-at-startup nil)
+(package-initialize)
 
 ;; mac laptop stuff
 (if (eq system-type 'darwin)
@@ -17,13 +19,17 @@
 		 (setq ispell-extra-args '("-d" "/Library/Application Support/cocoAspell/aspell6-en-6.0-0/en.multi"))
 		 ))))
 
-;; ;; Copy environment variables over if on Mac window system
-;; (when (memq window-system '(mac ns))
-;;   (exec-path-from-shell-initialize))
+;; Copy environment variables over if on Mac window system
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
+
+;; Flymake general
+(require 'flymake)
+(add-to-list 'load-path "~/.emacs.d/elisp/emacs-flymake-cursor/")
+(eval-after-load 'flymake '(require 'flymake-cursor))
 
 ;; Flymake for ELisp
-(require 'flymake)
 (defun flymake-elisp-init ()
   (unless (string-match "^ " (buffer-name))
     (let* ((temp-file   (flymake-init-create-temp-buffer-copy
@@ -54,6 +60,14 @@
           ;; workaround for (eq buffer-file-name nil)
           (function (lambda () (if buffer-file-name (flymake-mode)))))
 
+;; Let's see if we can get .F90 files using flymake
+(setq flymake-allowed-file-name-masks
+      (cons '(".+\\.F90$"
+	      flymake-simple-make-init
+	      flymake-simple-cleanup
+	      flymake-get-real-file-name)
+	    flymake-allowed-file-name-masks))
+
 
 ;; Save the emacs buffer state to local directory
 (desktop-save-mode 1)
@@ -72,7 +86,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-tag-persistent-alist '((:startgroup . nil)
-				 ("@work" . ?w) ("@home" . ?h)
+				 ("@work" . ?w) ("@home" . ?h) ("@lunch" . ?u)
 				 ("errands" . ?e)
 				 (:endgroup . nil)
 				 ("laptop" . ?l) ("calls" . ?c) ("workstation" . ?k)))
@@ -94,8 +108,11 @@
 	))
 (add-to-list 'auto-mode-alist '("README$" . org-mode))
 
-(if (eq system-type 'darwin)
-    (setq org-mobile-directory "~/Dropbox/GTD"))
+;; Work machine uses btsync to sync this folder with my laptop,
+;; so as long as the laptop is online this should get coordinated with
+;; mobile org
+(setq org-mobile-directory "~/Dropbox/GTD")
+
 (if (eq system-type 'darwin) ;; Sync for mobile org via dropbox when on laptop
     (progn (defvar org-mobile-push-timer nil
 	     "Timer that `org-mobile-push-timer' used to reschedule itself, or nil.")
@@ -134,7 +151,6 @@
 	   ))
 
 ;; highlight parentheses
-(add-to-list 'load-path "~/.emacs.d/elpa/highlight-parentheses-20130523.852/")
 (require 'highlight-parentheses)
 (highlight-parentheses-mode 1)
 
@@ -251,20 +267,22 @@
    version-control t)
 
 ;; git interfaces
-(add-to-list 'load-path "~/.emacs.d/elpa/git-commit-mode-20140125.1553/")
-(require 'git-commit-mode)
-(add-to-list 'load-path "~/.emacs.d/elpa/git-rebase-mode-20140125.1553/")
-(require 'git-rebase-mode)
-(add-to-list 'load-path "~/.emacs.d/elpa/magit-20140214.1108/")
+;(add-to-list 'load-path "~/.emacs.d/elpa/git-commit-mode-20140125.1553/")
+;(require 'git-commit-mode)
+;(add-to-list 'load-path "~/.emacs.d/elpa/git-rebase-mode-20140125.1553/")
+;(require 'git-rebase-mode)
+;(add-to-list 'load-path "~/.emacs.d/elpa/magit-20140214.1108/")
 ;(require 'magit)
 ;(add-to-list 'load-path "~/.emacs.d/elpa/magithub-20121130.1740/")
 ;(require 'magithub)
 
-(add-to-list 'load-path "~/.emacs.d/elpa/graphviz-dot-mode-20120821.1835/")
+(require 'gist)
+
+;; (require 'f90-interface-browser)
+
 (require 'graphviz-dot-mode)
 
 ;; Smart TAB behaviour.
-(add-to-list 'load-path "~/.emacs.d/elpa/smart-tab-20130317.1157/")
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand t)
@@ -343,7 +361,6 @@
 
 
 ;;Cmake stuff
-(add-to-list 'load-path "~/.emacs.d/elpa/cmake-mode-20140203.811/")
 (require 'cmake-mode)
 (setq auto-mode-alist
       (append '(("CMakeLists\\.txt\\'" . cmake-mode)
@@ -357,11 +374,13 @@
 (add-hook 'c++-mode-hook 'maybe-cmake-project-hook)
 ;(add-hook 'f90-mode-hook 'maybe-cmake-project-hook)
 
-;; tell emacs where to find zenburn
-(setq custom-theme-load-path 
-      (append 
-       '("~/.emacs.d/elpa/zenburn-theme-20140212.457/")
-       custom-theme-load-path)) 
+;; smart parens
+;(add-to-list 'load-path "~/.emacs.d/elpa/dash-20140214.321/")
+(require 'smartparens-config)
+(smartparens-global-mode t)
+
+(setq gnus-nntp-server "news.eternal-september.org")
+(setq nntp-authinfo-function 'nntp-send-authinfo)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -369,10 +388,24 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-term-color-vector [unspecified "#14191f" "#d15120" "#81af34" "#deae3e" "#7e9fc9" "#a878b5" "#7e9fc9" "#dcdddd"])
+ '(canlock-password "6cd5945ba236f5ec3bf7672640584ee46cacf652")
  '(column-number-mode t)
+ '(compilation-always-kill t)
+ '(compilation-auto-jump-to-first-error nil)
+ '(compilation-scroll-output (quote first-error))
  '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes (quote ("a3d519ee30c0aa4b45a277ae41c4fa1ae80e52f04098a2654979b1ab859ab0bf" "d9639ebed5f3709f47b53e4bb8eea98a11455ab9336039cf06e9695a0233d5fb" "446c73cdfb49f1dab4c322e51ac00a536fb0e3cb7e6809b9f4616e0858012e92" "1278386c1d30fc24b4248ba69bc5b49d92981c3476de700a074697d777cb0752" "9ea054db5cdbd5baa4cda9d373a547435ba88d4e345f4b06f732edbc4f017dc3" "1f3304214265481c56341bcee387ef1abb684e4efbccebca0e120be7b1a13589" "b6f7795c2fbf75baf3419c60ef7625154c046fc2b10e3fdd188e5757e08ac0ec" "4dacec7215677e4a258e4529fac06e0231f7cdd54e981d013d0d0ae0af63b0c8" default)))
  '(fci-rule-character-color "#192028")
+ '(flymake-cursor-number-of-errors-to-display nil)
+ '(flymake-info-line-regexp "[rR]emark\\\\|[iI]nfo")
+ '(flymake-log-level 3)
+ '(flymake-max-parallel-syntax-checks 1)
+ '(flymake-no-changes-timeout 4.0)
+ '(flymake-number-of-errors-to-display 5)
+ '(flymake-start-syntax-check-on-find-file t)
+ '(flymake-warn-line-regexp "[wW]arn")
+ '(gnus-treat-display-smileys nil)
+ '(gnus-treat-x-pgp-sig (quote head))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/GTD/Errands.org" "~/GTD/projects/ProjectIndex.org" "~/GTD/Someday.org" "~/GTD/WaitingOn.org" "~/GTD/NextActions.org" "~/GTD/InBox.org")))
  '(save-place t nil (saveplace))

@@ -3,9 +3,10 @@
 ;;; Code:
 
 
-;;;### (autoloads (cmake-help-command cmake-get-command cmake-help-list-commands
+;;;### (autoloads (cmake-help cmake-help-property cmake-help-variable
+;;;;;;  cmake-help-module cmake-help-command cmake-help-list-commands
 ;;;;;;  cmake-command-run cmake-mode) "cmake-mode" "cmake-mode.el"
-;;;;;;  (21246 52439 0 0))
+;;;;;;  (21250 35539 0 0))
 ;;; Generated autoloads from cmake-mode.el
 
 (autoload 'cmake-mode "cmake-mode" "\
@@ -24,13 +25,28 @@ Prints out a list of the cmake commands.
 
 \(fn)" t nil)
 
-(autoload 'cmake-get-command "cmake-mode" "\
-Gets the topic from the minibuffer input.  The default is the word the cursor is on.
-
-\(fn)" nil nil)
-
 (autoload 'cmake-help-command "cmake-mode" "\
-Prints out the help message corresponding to the command the cursor is on.
+Prints out the help message for the command the cursor is on.
+
+\(fn)" t nil)
+
+(autoload 'cmake-help-module "cmake-mode" "\
+Prints out the help message for the module the cursor is on.
+
+\(fn)" t nil)
+
+(autoload 'cmake-help-variable "cmake-mode" "\
+Prints out the help message for the variable the cursor is on.
+
+\(fn)" t nil)
+
+(autoload 'cmake-help-property "cmake-mode" "\
+Prints out the help message for the property the cursor is on.
+
+\(fn)" t nil)
+
+(autoload 'cmake-help "cmake-mode" "\
+Queries for any of the four available help topics and prints out the approriate page.
 
 \(fn)" t nil)
 
@@ -40,7 +56,7 @@ Prints out the help message corresponding to the command the cursor is on.
 
 ;;;***
 
-;;;### (autoloads nil nil ("cmake-mode-pkg.el") (21246 52439 400889
+;;;### (autoloads nil nil ("cmake-mode-pkg.el") (21250 35539 635967
 ;;;;;;  0))
 
 ;;;***
