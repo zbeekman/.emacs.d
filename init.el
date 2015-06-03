@@ -289,7 +289,7 @@
                             ("WAITING" . ?w)
                             ("PERSONAL" . ?P)
                             ("WORK" . ?W)
-                            ("NOTE" . ?n)
+                            ("NOTE" . ?N)
                             ("CANCELLED" . ?c)
                             ("FLAGGED" . ??)
 			    ("THEO" . ?t)
@@ -1797,4 +1797,3 @@ Late deadlines first, then scheduled, then non-late deadlines"
  '(vc-make-backup-files t)
  '(vc-svn-header (quote ("$HeadURL$" "$Id$")))
  '(yagist-working-directory "~/.yagist"))
-
