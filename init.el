@@ -201,6 +201,7 @@
 
 (require 'yagist)
 (setq yagist-view-gist t)
+(when (file-readable-p "yagist-github-token") (load-file "yagist-github-token"))
 
 (require 'org-mac-iCal)
 (add-hook 'org-agenda-cleanup-fancy-diary-hook
@@ -1774,7 +1775,7 @@ Late deadlines first, then scheduled, then non-late deadlines"
  '(magit-rewrite-inclusive nil)
  '(org-agenda-files
    (quote
-    ("~/org/Errands.org" "~/org/projects/ProjectIndex.org" "~/org/Someday.org" "~/org/WaitingOn.org" "~/org/NextActions.org" "~/org/InBox.org" "~/org/diary.org" "~/org/GoogleCalendar.org" "~/org/JaninesGoogleCalendar.org" "~/org/MobileCapture.org")))
+    ("~/org/Errands.org" "~/org/projects/ProjectIndex.org" "~/org/Someday.org" "~/org/WaitingOn.org" "~/org/NextActions.org" "~/org/InBox.org" "~/org/diary.org" "~/org/GoogleCalendar.org" "~/org/MobileCapture.org")))
  '(org-clock-idle-time 10)
  '(osx-clipboard-mode t)
  '(preview-auto-cache-preamble t)
@@ -1795,6 +1796,5 @@ Late deadlines first, then scheduled, then non-late deadlines"
  '(tool-bar-mode nil)
  '(vc-make-backup-files t)
  '(vc-svn-header (quote ("$HeadURL$" "$Id$")))
- '(yagist-github-token (quote redacted))
  '(yagist-working-directory "~/.yagist"))
 
