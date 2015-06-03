@@ -1176,7 +1176,7 @@ so change the default 'F' binding in the agenda to allow both"
 
 ;; Sorting order for tasks on the agenda
 (setq org-agenda-sorting-strategy
-      (quote ((agenda habit-down time-up user-defined-up effort-up category-keep)
+      (quote ((agenda time-up user-defined-up effort-up category-keep)
               (todo category-up effort-up)
               (tags category-up effort-up)
               (search category-up))))
