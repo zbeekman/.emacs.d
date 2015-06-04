@@ -1621,10 +1621,17 @@ Late deadlines first, then scheduled, then non-late deadlines"
 ;;;;;;;;;;;;;;;;;;;;
 ;; f90-mode stuff ;;
 ;;;;;;;;;;;;;;;;;;;;
+(load-file "~/.emacs.d/elisp/fortran-tags.el")
 (add-hook 'f90-mode-hook
           '(lambda ()
 	     (setq f90-beginning-ampersand nil)
-;;	     (f90-add-imenu-menu)
+	     (local-set-key (kbd "M-.") 'fortran-find-tag)
+	     (local-set-key (kbd "M-*") 'fortran-pop-tag-mark)
+	     (local-set-key (kbd "M-n") 'fortran-goto-next)
+	     (local-set-key (kbd "M-s g") 'fortran-find-proc-calls)
+	     (local-set-key (kbd "M-s s") 'fortran-find-proc-calls-sub)
+	     (local-set-key (kbd "M-s f") 'fortran-find-proc-calls-func)
+	     (local-set-key (kbd "M-s t") 'fortran-find-proc-calls-type)
 	     (abbrev-mode 1)
 	     (column-number-mode t)
 	     (which-func-mode 1)
