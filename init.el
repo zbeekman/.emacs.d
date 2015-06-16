@@ -244,7 +244,7 @@
        '((sequence "TODO(t)" "NEXT(n)" "TOVERIFY(v)" "WAITING(w@)" "|" "DONE(d!/@)" "DELEGATED(g@)" "CANCELED(c@)")
 	 (sequence "TOPURCHASE(p)" "|" "BOUGHT(b!)")
 	 (sequence "EMAILED(e!)" "PHONED(o!)" "MAILED(l!)" "SUBMITTED(s!)" "|"
-		   "APPROVED(v!/@)" "DENIED(n!/@)" "RESOLVED(r!/@)")
+		   "APPROVED(A!/@)" "DENIED(n!/@)" "RESOLVED(r!/@)")
 	 (sequence "|" "MEETING(m)" "CALL(a)")
          (sequence "DONOTDO(D)" "|" "DIDIT(i@)")))
 
